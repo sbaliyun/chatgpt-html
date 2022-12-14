@@ -1,0 +1,123 @@
+/*--------- Medium devices -----------*/
+@media (min-width: 992px) and (max-width: 1200px) {
+
+
+}
+
+ 
+/*--------- TSmall devices Tablets ------------*/
+@media (min-width: 768px) and (max-width: 991px) {
+.sm-100{width:100%}
+.basic-menu li {
+  margin-left: 30px;
+}
+.portfolio-grid-4 .portfolio-item {
+  width: 33.33%;
+}
+.portfolio-mosaic .portfolio-item {
+  width: 50%;
+}
+.about-text {
+  margin-bottom: 60px;
+  margin-top: 0;
+}
+.portfolio-view-btn {
+  margin-bottom: 30px;
+}
+.counter-box {
+  width: 50%;
+}
+
+
+}
+
+ 
+/*------------ Extra small devices ------------*/
+@media (max-width: 767px) {
+.basic-menu li {
+  margin-left: 0;
+}
+.basic-menu > li > a::before {
+  display: none;
+}
+.slide-1{background-size:cover}
+.portfolio-item {
+  width: 100%;
+}
+.area-title {
+  width: 100%;
+}
+.call-to-action {
+  text-align: left;
+}
+.hamburger {
+  display: none;
+}
+.hamburger-menu {
+  display: none;
+}
+.sticky .mean-container a.meanmenu-reveal {
+  margin-top: -46px;
+}
+.copyright {
+  margin-bottom: 10px;
+  text-align: center;
+}
+.footer-menu {
+  text-align: center;
+}
+.portfolio-grid-2 .portfolio-item {
+  width: 100%;
+} 
+.portfolio-grid-4 .portfolio-item {
+  width: 100%;
+}
+.portfolio-mosaic .portfolio-item {
+  width: 100%;
+}
+.about-text {
+  margin-bottom: 60px;
+  margin-top: 0;
+}
+.counter-box {
+  width: 50%;
+}
+.pagination > li {
+  margin-bottom: 5px;
+}
+.comment-reply {
+  margin-left: 0;
+}
+.portfolio-view-btn {
+  margin-bottom: 30px;
+}
+.header-transparent .mean-container a.meanmenu-reveal {
+  border: 1px solid #fff;
+}
+.header-transparent .mean-container a.meanmenu-reveal span {
+  background: #fff none repeat scroll 0 0;
+}
+.slider-screen {
+  height: 50vh;
+}
+.portfolio-item.graphic.width-8 {
+  width: 100%;
+}
+
+
+ 
+}
+ 
+/*----------- Large Mobile -------------*/
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+.portfolio-item {
+  width: 100%;
+}
+.portfolio-grid-2 .portfolio-item {
+  width: 100%;
+} 
+.portfolio-grid-4 .portfolio-item {
+  width: 100%;
+}
+ 
+}
