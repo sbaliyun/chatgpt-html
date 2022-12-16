@@ -41,10 +41,10 @@
           150); // 每隔50毫秒打印一个字符
         }
         var xhr = new XMLHttpRequest();
-        var url = "https://cc-api.sbaliyun.com/";
+        var url = "https://api.openai.com/v1/completions";
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
-        //xhr.setRequestHeader("又来偷我key?", "Bearer fuck you");
+        xhr.setRequestHeader("Authorization", "Bearer 123456");
         xhr.onreadystatechange = function() {
           if (xhr.readyState === 4 && xhr.status === 200) {
             var json = JSON.parse(xhr.responseText);
