@@ -11,7 +11,7 @@ online: https://www.cveoy.com/     The response speed is millisecond level
 <h3 align="center">JetBrains</h3>
 
 <p align="center">
-  <a href="https://www.jetbrains.com/?from=pkslow-samples">
+  <a href="https://www.jetbrains.com/?from=chatgpt-html">
     <img width="260px" src="![image](https://user-images.githubusercontent.com/120544710/225796807-ac16cbe7-10b1-49d2-9f31-39f421a9d5c1.png)">
   </a>
 </p>
