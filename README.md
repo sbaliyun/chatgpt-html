@@ -17,3 +17,5 @@ online: https://chat.chagpt.fun/    The response speed is millisecond level
 </p>
 
 > Thanks JetBrains to support the project providing such great IDE.
+
+> Thanks DartNode to support the project
