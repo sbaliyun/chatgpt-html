@@ -25,7 +25,7 @@ online: https://chat.chagpt.fun/    The response speed is millisecond level
 
 <p align="center">
   <a href="https://dartnode.com/?from=chatgpt-html">
-    <img width="260px" src="![white_color_full](https://github.com/sbaliyun/chatgpt-html/assets/120544710/04b66e39-e7ad-4c75-b637-b95e8392b1bd)">
+    <img width="260px" src="https://sbaliyun.pages.dev/file/438761d35d575fe2a8d3f.png">
   </a>
 </p>
 
