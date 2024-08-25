@@ -1,36 +1,28 @@
-# Chat-GPT
-Ai-Chat
+# 🤖 ChatGPT-HTML
+AI-Chat
 
-Update the key on line 47 of the index.html file
+🌐 **Online:** [https://chat.chagpt.fun/](https://chat.chagpt.fun/) - The response speed is millisecond level.
 
-online: https://chat.chagpt.fun/    The response speed is millisecond level
+---
 
-
-
-
-<h3 align="center">JetBrains</h3>
+### 🛠️ JetBrains
 
 <p align="center">
   <a href="https://www.jetbrains.com/?from=chatgpt-html">
-    <img width="260px" src="https://user-images.githubusercontent.com/120544710/225796807-ac16cbe7-10b1-49d2-9f31-39f421a9d5c1.png">
+    <img width="260px" src="https://user-images.githubusercontent.com/120544710/225796807-ac16cbe7-10b1-49d2-9f31-39f421a9d5c1.png" alt="JetBrains">
   </a>
 </p>
 
-> Thanks JetBrains to support the project providing such great IDE.
+> Thanks to JetBrains for supporting the project by providing such a great IDE. 👏
 
+---
 
-
-
-<h3 align="center">DartNode</h3>
+### 🚀 DartNode
 
 <p align="center">
   <a href="https://dartnode.com/?from=chatgpt-html">
-    <img width="260px" src="https://sbaliyun.pages.dev/file/438761d35d575fe2a8d3f.png">
+    <img width="260px" src="https://sbaliyun.pages.dev/file/438761d35d575fe2a8d3f.png" alt="DartNode">
   </a>
 </p>
 
->  Thanks DartNode to support the project
-
-
-
-
+> Thanks to DartNode for supporting the project. 🌟
