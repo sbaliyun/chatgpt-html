@@ -8,11 +8,11 @@ online: https://chat.chagpt.fun/    The response speed is millisecond level
 
 
 
-<h3 align="center">JetBrains</h3>
+<h3 align="center">CDN acceleration and security protection for this project are sponsored by Tencent EdgeOne.</h3>
 
 <p align="center">
-  <a href="https://www.jetbrains.com/?from=chatgpt-html">
-    <img width="260px" src="https://user-images.githubusercontent.com/120544710/225796807-ac16cbe7-10b1-49d2-9f31-39f421a9d5c1.png">
+  <a href="https://edgeone.ai/?from=github">
+    <img width="260px" src="https://edgeone.ai/media/34fe3a45-492d-4ea4-ae5d-ea1087ca7b4b.png">
   </a>
 </p>
 
