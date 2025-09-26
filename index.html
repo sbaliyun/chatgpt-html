@@ -1,180 +1,157 @@
 <!doctype html>
 <html class="no-js" lang="">
-  
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Ai - Chat sbaliyun</title>
+    <title>Ai Chat公益版</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>#chatgpt-response { font-family: "等线"; font-size: 20px; color: #0000FF; font-weight: bold; }</style>
-    <!-- favicon icon -->
-    <link rel="icon" href="img/favicon.png">
-    <!-- All CSS Files Here -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/et-line-fonts.css">
-    <link rel="stylesheet" href="css/ionicons.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
-    <link rel="stylesheet" href="css/meanmenu.css">
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="css/responsive.css">
-    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
-    <script>
-	    async function callCHATGPT() {
-		var responseText1 = document.getElementById("chatgpt-response");
-		responseText1.innerHTML = ""
-        function printMessage(message) {
-          var responseText = document.getElementById("chatgpt-response");
-          var index = 0;
-
-          // 创建一个定时器，每隔一段时间打印一个字符
-          var interval = setInterval(function() {
-            responseText.innerHTML += message[index];
-            index++;
-
-            // 当打印完成时，清除定时器
-            if (index >= message.length) {
-              clearInterval(interval);
-            }
-          },
-          20); // 每隔20毫秒打印一个字符
-        }
-        var xhr = new XMLHttpRequest();
-        var url = "https://api.openai.com/v1/chat/completions";
-        xhr.open("POST", url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.setRequestHeader("Authorization", "Bearer sk-123456");
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState === 4 && xhr.status === 200) {
-            var json = JSON.parse(xhr.responseText);
-            var response = json.choices[0].message.content;
-
-            // 将CHATGPT的返回值输出到文本框
-            var responseText = document.getElementById("chatgpt-response");
-			
-            var index = 0;
-
-            // 创建一个定时器，每隔一段时间打印一个字符
-            var interval = setInterval(function() {
-              responseText.innerHTML += response[index];
-              index++;
-
-              // 当打印完成时，清除定时器
-              if (index >= response.length) {
-                clearInterval(interval);
-              }
-            },
-            20); // 每隔20毫秒打印一个字符
-          }
-        };
-		var prompt = document.getElementById("chat-gpt-input").value
-
-        var data = JSON.stringify({
-		  "messages":  [{"role": "user", "content": prompt}],
-          "temperature": 0.5,
-          "top_p": 1,
-          "frequency_penalty": 0,
-          "presence_penalty": 0,
-          "model": "gpt-3.5-turbo"
-        });
-        console.log(data);
-        await printMessage('正在思考，请等待......');
-		await xhr.send(data);
-      }
+	<meta name="description" content="文心GPT免费体验,文心GPT在线体验,文心GPT官网地址,文心GPT免登录,文心GPT免注册,与Ai对话，请描述您的需求-支持中文、英语、日本语等,文心GPT和本网站都是基于open ai实现的"/>
+	<meta name="keywords" content="文心GPT 人工智能文心GPT 聊天机器人文心GPT 文心GPT免费 文心GPT在线体验 文心GPT官网 文心GPT登录 文心GPT注册 文心GPT地址"/>
+    <style>
+	 #chatgpt-response { font-size: 20px;}
+	 #chatgpt-response p { all: revert;}
+	.float-left {position: fixed;float: left;margin-left: 1%;margin-top: 5%;}
+	.fixed-length-container {
+        height: 500px; 
+        overflow: auto; 
+        border: 1px solid #ccc; 
+        padding: 10px;
+    }
+	</style>
+    <link rel="icon" href="https://html.cnmwx.com/img/mask-icon.svg">
+	<link href="https://html.cnmwx.com/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://html.cnmwx.com/css/style.css">
+    <script src="https://html.cnmwx.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://html.cnmwx.com/ajax/libs/showdown/2.0.0/showdown.js"></script>
+    <script type="text/javascript">
+	const url = "https://free-api.cnmwx.com/v1/completions";
+	const converter = new showdown.Converter();
+	async function callCHATGPT() {
+		const responseText = document.getElementById("chatgpt-response");
+		let currentMarkdown = "";
+		$("#answer").attr('disabled',true)
+		const prompt = document.getElementById("chat-gpt-input").value
+		const data = JSON.stringify({"prompt": prompt});
+		const response = await fetch(url, {method: 'POST',headers: {'Content-Type': 'application/json'},body: data});
+		if(response.status == 200){
+			const reader = response.body.getReader();
+			while (true) {
+			  const {value, done} = await reader.read();
+			  if (done) {
+				$("#answer").attr('disabled',false)
+				break;
+			  }
+			  const message = new TextDecoder().decode(value);
+			  currentMarkdown += message;
+                          try {
+                          responseText.innerHTML = converter.makeHtml(currentMarkdown);
+                          } catch (e) {
+                          }
+			}
+		}else{
+			responseText.innerHTML = "\n你输入的问题有误,请重新输入！"
+			$("#answer").attr('disabled',false)
+		}
+		$("#answer").attr('disabled',false)
+    }
 	</script>
   </head>
-	 
+  
   <body>
-    <div class="page-loader">
-      <div class="loader">Loading...</div></div>
-    <header id="sticky-header">
-      <div class="header-area">
-        <div class="container sm-100">
-          <div class="row">
-            <div class="col-md-3 col-sm-2">
-              <div class="logo text-upper">
-                <h4>
-                  <a href="index.html">OpenAi -GPT</a></h4>
-              </div>
-            </div>
-          </div>
+	<header id="sticky-header">
+      <div class="container">
+            <nav class="navbar " role="navigation">
+				<p class="navbar-text navbar-left"><a class="navbar-brand" href="index.html">零零GPT</a></p>
+				<p class="navbar-text navbar-right navbar-brand">更多信息请查看网站底部</p>
+			</nav>
         </div>
-      </div>
     </header>
+	
     <div class="basic-portfolio-area ptb-10">
       <div class="filter-menu text-center mb-40">
-        <h4>与Ai对话，请描述您的需求-支持中文、英语、日本语等</h4>
-        <h3>访问费用由站长承担，请勿频繁访问！</h3>
-        <h3>此网站为公益网站如果你在某宝某鱼购买的 请申请退款 并举报！</h3>
-        <h3>此网站搭建教程</h3>
-		<p>https://cloud.tencent.com/developer/article/2192663</p>
+        <h4>本站为Ai Chat公益站！</h4>
+        <h4>站长QQ：180268585</h4>
+		<h6><a href="svip.html"><span style="color:red">SVIP用户使用地址点击我</span></a></h6>
 	  </div>
       <div class="call-to-action-area gray-bg ptb-60">
         <div class="container">
-          <div class="row">
-            <div class="col-md-9 col-sm-9 col-xs-12">
-              <div class="form-group">
-                <label></label>
-                <textarea class="form-control" id="chat-gpt-input" placeholder="输入描述" rows="3" resize="none" style="width: 135%; margin: 0 auto; background-color: #f4f4f4; color: #333; border: 1px solid #ccc; border-radius: 12px;"></textarea>
-              </div>
-              <div class="col-md-3 col-sm-3 col-xs-12">
-                <div class="call-to-action">
-                  <button onclick="callCHATGPT()" autocomplete="off" class="btn btn-large" href="#" style="background-color: #333; color: #f4f4f4; border-radius: 10px">
-                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Click to
-                    <br>Answer</button></div>
-              </div>
-              <div class="col-md-9 col-sm-9 col-xs-12">
-                <div class="form-group">
-                  <label></label>
-                  <textarea class="form-control" id="chatgpt-response" placeholder="长途访问，请耐心等待回答 Ai生成它很快，但是由于网络问题我们需要等待，通常内容越长等待越久 如果长时间没反应请刷新页面重试" rows="26" resize="none" style="width: 150%;height: auto; margin: 0 auto; background-color: #f4f4f4; color: #333; border: 1px solid #ccc; border-radius: 10px; overflow: scroll;" readonly="true"></textarea>
-                </div>
-              </div>
+			<div class="form-group">
+                <textarea class="form-control" id="chat-gpt-input" placeholder="输入描述          站长祝大家天天开心！恭喜发财！身体健康！" rows="3" resize="none" style="width: 100%; margin: 0 auto; background-color: #f4f4f4; color: #333; border: 1px solid #ccc; border-radius: 12px;"></textarea>
             </div>
-          </div>
+			<div class="call-to-action">
+                <button id="answer" onclick="callCHATGPT()" autocomplete="off" class="btn btn-large" href="#" style="background-color: #333; color: #f4f4f4; border-radius: 10px">回答</button>
+			</div>
+			<div class="form-group">
+				<label></label>
+				<div id="chatgpt-response" class="fixed-length-container" style="width: 100%;height: 500px; margin: 0 auto; background-color: #f4f4f4; color: #333; border: 1px solid #ccc; border-radius: 10px; overflow: auto;">
+					长途访问，请耐心等待回答 Ai生成它很快，但是由于网络问题我们需要等待，通常内容越长等待越久 如果长时间没反应请刷新页面重试
+				</div>
+			</div>
 		</div>
 		<footer>
-			<div class="basic-footer gray-bg text-center ptb-90">
+			<div class="basic-footer gray-bg text-center ptb-20">
 				<div class="container">
-					<div class="footer-logo mb-30">
-						<h3><a href="index.html">Open Ai 智能对话</a></h3>
+					<div class="footer-logo mb-10">
+						<h3><a href="index.html">AI Chat 智能对话</a></h3>
 					</div>
 					<div class="copyright mt-20">
-						<p>站长TG：<a href="https://t.me/pocxxx">@pocxxx</a></p>
-						<p>国外手机号接码：<a href="https://sms-activate.org/?ref=2461182">https://sms-activate.org</a></p>
+						<p>本月已花费2200多美金 👇赞助站长👇</p>
+						<p><img src="//html.cnmwx.com/20230106220707.jpg" alt="感谢赞助！" title="感谢赞助！" /></p>
 						<hr>
-						<hr>
-						<p>本月已花费5400多美金 👇赞助站长👇</p>
-						<p><img src='https://upload-bbs.miyoushe.com/upload/2023/02/28/283684029/9b58bc87cf914ca57429efb22c0da351_746776194442819643.jpg' /></p>
+						<p>站长TG：<a href="https://t.me/pocxxx" target="_blank">@pocxxx</a></p>
+						<p>合作邮箱：wxgpt@qq.com</p>
+						<p>国外手机号接码：<a href="https://www.cveoy.top/?ref=2461182" target="_blank">https://www.cveoy.top</a></p>
 					</div>
-					<div class="footer-menu mt-30">
-						<p>友情链接</p>
-						<nav>
-							<ul>
-								<li><a href="https://www.cveoy.com/" target="_blank">ChatGPT公益站</a></li>
-							</ul>
-						</nav>
+					<div class="copyright mt-20">
+						<p>以下域名任意子域名均可访问</p>
+						<p><span style="color:red">任意字符.00chatgpt.com</span></p>
+						<p><span style="color:red">任意字符.chagpt.fun</span></p>
+						<p>6.chagpt.fun</p>
+						<p>8.chagpt.fun</p>
+						<p>..............</p>
+						<p>8.00chatgpt.com</p>
 					</div>
 				</div>
 			</div>
+			<div class="basic-footer gray-bg text-center ptb-20">
+				<div class="container">
+					<span id="runtime"></span>
+				</div>
+			</div>
 		</footer>
-
-        <script src="js/vendor/jquery-1.12.0.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/isotope.pkgd.min.js"></script>
-        <script src="js/imagesloaded.pkgd.min.js"></script>
-        <script src="js/jquery.magnific-popup.min.js"></script>
-        <script src="js/jquery.meanmenu.js"></script>
-        <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
+		
+		<script>var OriginTitile=document.title; var st; document.addEventListener('visibilitychange',function(){ if(document.hidden){ document.title="(つェ⊂)浏览器崩溃了"; clearTimeout(st); console.log('hide'); }else{ document.title='(*´∇｀*)吖~又好了~ '+OriginTitile; console.log('show'); st=setTimeout(function(){ document.title=OriginTitile; },4000); console.log('endChange='); } });</script>
+		<script src="https://html.cnmwx.com/live2dw/lib/L2Dwidget.min.js"></script>
+		<script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://html.cnmwx.com/live2dw/assets/koharu.model.json"},"display":{"position":"left","width":50,"height":100},"mobile":{"show":false},"log":false});</script>
+	    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9203274547589271" crossorigin="anonymous"></script>
+		<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-9T4BNDYHDL"></script> -->
 		<script>
-		var _hmt = _hmt || [];
-		(function() {
-		  var hm = document.createElement("script");
-		  hm.src = "https://hm.baidu.com/hm.js?05df94d9887ea8acd5a75f70e8a6bb11";
-		  var s = document.getElementsByTagName("script")[0]; 
-		  s.parentNode.insertBefore(hm, s);
-		})();
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		  gtag('config', 'G-9T4BNDYHDL');
+		  // var randomNum = Math.floor(Math.random() * 991) + 10;
+		  // document.getElementById("uri").textContent = "https://"+randomNum+".chagpt.fun/svip.html";
+		  // document.getElementById("uri00").textContent = randomNum+".00chatgpt.com";
+		  
+		  function runtime(){
+			// 初始时间，日/月/年 时:分:秒
+			X = new Date("11/08/2022 00:00:00");
+			Y = new Date();
+			T = (Y.getTime()-X.getTime());
+			M = 24*60*60*1000;
+			a = T/M;
+			A = Math.floor(a);
+			b = (a-A)*24;
+			B = Math.floor(b);
+			c = (b-B)*60;
+			C = Math.floor((b-B)*60);
+			D = Math.floor((c-C)*60);
+			//信息写入到DIV中
+			document.getElementById("runtime").innerHTML = "本站已运行: "+A+"天"+B+"小时"+C+"分"+D+"秒"
+		}
+		setInterval(runtime, 1000);
 		</script>
 
   </body>
