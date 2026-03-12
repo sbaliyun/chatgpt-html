@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>时间戳转换工具</title>
+
+<link rel="icon" href="favicon.ico">
+
+<style>
+
+:root{
+--bg:#f4f6fb;
+--card:#ffffff;
+--text:#222;
+--primary:#4f7cff;
+--border:#e6e8ef;
+}
+
+body.dark{
+--bg:#0f1116;
+--card:#1b1f27;
+--text:#e5e7eb;
+--border:#30343f;
+}
+
+body{
+margin:0;
+font-family:system-ui;
+background:var(--bg);
+color:var(--text);
+}
+
+.container{
+max-width:600px;
+width:92%;
+margin:40px auto;
+background:var(--card);
+padding:25px;
+border-radius:14px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+h1{
+text-align:center;
+margin-bottom:20px;
+}
+
+.group{
+margin-bottom:16px;
+}
+
+label{
+font-weight:600;
+display:block;
+margin-bottom:6px;
+}
+
+input,select{
+
+width:100%;
+padding:12px;
+font-size:16px;
+border-radius:8px;
+border:1px solid var(--border);
+background:var(--card);
+color:var(--text);
+
+}
+
+select option{
+background:var(--card);
+color:var(--text);
+}
+
+.result{
+
+margin-top:15px;
+padding:12px;
+border-radius:8px;
+background:rgba(0,0,0,0.05);
+font-size:14px;
+word-break:break-all;
+
+}
+
+.row{
+
+display:flex;
+gap:10px;
+margin-top:10px;
+flex-wrap:wrap;
+
+}
+
+button{
+
+flex:1;
+padding:12px;
+border:none;
+border-radius:8px;
+background:var(--primary);
+color:white;
+font-size:15px;
+cursor:pointer;
+
+}
+
+.small{
+
+background:#10b981;
+
+}
+
+.top{
+
+display:flex;
+justify-content:space-between;
+margin-bottom:10px;
+
+}
+
+.top button{
+
+padding:6px 10px;
+font-size:13px;
+background:#6b7280;
+
+}
+
+.now{
+
+margin-top:15px;
+padding:10px;
+font-size:13px;
+opacity:.8;
+
+}
+
+@media (max-width:600px){
+
+h1{
+font-size:22px;
+}
+
+}
+
+#toast{
+position:fixed;
+top:20px;
+right:20px;
+background:#333;
+color:#fff;
+padding:10px 16px;
+border-radius:6px;
+font-size:14px;
+opacity:0;
+transform:translateY(-10px);
+transition:all .3s;
+z-index:999;
+}
+
+#toast.show{
+opacity:1;
+transform:translateY(0);
+}
+
+</style>
+</head>
+
+<body>
+<div id="toast"></div>
+
+<div class="container">
+
+<div class="top">
+<button onclick="setNow()">当前时间</button>
+<button onclick="toggleDark()">深色模式</button>
+</div>
+
+<h1>时间戳转换工具</h1>
+
+<div class="group">
+<label>时间戳</label>
+<input id="ts" inputmode="numeric" placeholder="输入秒或毫秒时间戳">
+</div>
+
+<div class="group">
+<label>日期时间 (YYYY-MM-DD HH:mm:ss)</label>
+<input id="date">
+</div>
+
+<div class="group">
+<label>时区</label>
+<select id="tz"></select>
+</div>
+
+<div class="row">
+<button onclick="copyTS()">复制时间戳</button>
+<button class="small" onclick="copyDate()">复制日期</button>
+</div>
+
+<div class="result" id="result"></div>
+
+<div class="now" id="now"></div>
+
+</div>
+
+<script>
+function showToast(msg){
+let t=document.getElementById("toast")
+t.innerText=msg
+t.classList.add("show")
+setTimeout(()=>{
+t.classList.remove("show")
+},2000)
+}
+function initTZ(){
+let tz=document.getElementById("tz")
+for(let i=-12;i<=14;i++){
+let op=document.createElement("option")
+let txt=i>=0?"UTC+"+i:"UTC"+i
+op.text=txt
+op.value=i
+if(i==8) op.selected=true
+tz.appendChild(op)
+}
+}
+function pad(n){
+return n<10?"0"+n:n
+}
+function format(d){
+return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+" "+
+pad(d.getHours())+":"+pad(d.getMinutes())+":"+pad(d.getSeconds())
+}
+function tsToDate(){
+let ts=document.getElementById("ts").value.trim()
+let tz=parseInt(document.getElementById("tz").value)
+if(!ts) return
+if(ts.length<=10) ts*=1000
+let d=new Date(parseInt(ts))
+let utc=d.getTime()+d.getTimezoneOffset()*60000
+let nd=new Date(utc+3600000*tz)
+let str=format(nd)
+document.getElementById("date").value=str
+document.getElementById("result").innerText=
+"毫秒: "+ts+"  秒: "+Math.floor(ts/1000)
+}
+function dateToTs(){
+let str=document.getElementById("date").value
+if(!str) return
+let tz=parseInt(document.getElementById("tz").value)
+let p=str.split(" ")
+let d=p[0].split("-")
+let t=p[1].split(":")
+let date=new Date(Date.UTC(
+d[0],
+d[1]-1,
+d[2],
+t[0]-tz,
+t[1],
+t[2]
+))
+let ms=date.getTime()
+document.getElementById("ts").value=ms
+document.getElementById("result").innerText=
+"毫秒: "+ms+"  秒: "+Math.floor(ms/1000)
+}
+function copyTS(){
+navigator.clipboard.writeText(document.getElementById("ts").value)
+showToast("时间戳已复制")
+}
+function copyDate(){
+navigator.clipboard.writeText(document.getElementById("date").value)
+showToast("日期已复制")
+}
+function setNow(){
+let now=Date.now()
+document.getElementById("ts").value=now
+tsToDate()
+}
+function updateNow(){
+let d=new Date()
+document.getElementById("now").innerText=
+"当前时间: "+format(d)+" | Unix: "+Math.floor(d.getTime()/1000)
+}
+function toggleDark(){
+document.body.classList.toggle("dark")
+}
+document.getElementById("ts").addEventListener("input",tsToDate)
+document.getElementById("date").addEventListener("input",dateToTs)
+document.getElementById("tz").addEventListener("change",tsToDate)
+initTZ()
+setNow()
+setInterval(updateNow,1000)
+</script>
+
+</body>
+</html>
